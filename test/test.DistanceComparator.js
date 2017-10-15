@@ -27,23 +27,6 @@ describe("DistanceComparator", function() {
                      (new DistanceComparator(e1, e2)) instanceof DistanceComparator).to.be.true));
          });
       });
-      describe("Parameter validation: invalid", function() {
-         it("Should return DistanceComparator when passed correct inputs.", function() {
-            let vals = [1,{},[],Symbol(""),null];
-            // Test all combinations of vals
-            vals.map((e1) =>
-               vals.map((e2) =>
-                  chai.expect(() =>
-                     (new DistanceComparator(e1, e2)) instanceof DistanceComparator).to.throw(Error)));
-
-            let objs1 = [{dice:{va:"Word"}},{levn:{al:"Word"}},{d:{v:4}},{dice:{fa:3}}];
-            let objs2 = [{huma:true},{human:false},{h:2},{Human:3},{human: []}];
-            objs1.map((e1) =>
-               objs2.map((e2) =>
-                  chai.expect(() =>
-                     (new DistanceComparator(e1, e2)) instanceof DistanceComparator).to.throw(Error)));
-         });
-      });
    });
    describe("Symbol Class Testing", function() {
       it("Should be able to retrieve symbol property from instance"
@@ -76,25 +59,9 @@ describe("DistanceComparator", function() {
             let dc = new DistanceComparator(/s/);
             chai.expect(() => dc.comp()).to.throw(Error);
          });
-         it("Should throw an error on valid first parameter and invalid second parameter", function() {
-            let dc = new DistanceComparator(/s/);
-            for(let i = 0; i < 100; i++) {
-               let rndStr = propGen.gen();
-               if(rndStr === "min" || rndStr === "max") continue;
-               chai.expect(() => dc.comp(1,rndStr)).to.throw(Error);
-            }
-         });
          it("Should throw an error on split that doesn't return array", function() {
             let dc = new DistanceComparator(/s/, ()=> {});
             chai.expect(() => dc.comp(1,"min")).to.throw(Error);
-         });
-         it("Should throw an error on comps that doesn return numbers single", function() {
-            let dc = new DistanceComparator(() => "");
-            chai.expect(() => dc.comp(1,"min")).to.throw(Error);
-         });
-         it("Should throw an error on comps that doesn return numbers array", function() {
-            let dc = new DistanceComparator(() => "", (val) => val.split(/ /g).map((e) => e - 0));
-            chai.expect(() => dc.comp("1 2 3 4 5","min")).to.throw(Error);
          });
       });
       describe("Output validation", function() {
