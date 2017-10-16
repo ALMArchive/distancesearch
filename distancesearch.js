@@ -12,7 +12,6 @@ const ClassSymbol = Symbol("DistanceSearch");
 class DistanceSearch {
    constructor(conObj) {
       this.Privates = {};
-      this.Privates.perfect = !!conObj.perfect;
       this.ClassSymbol = ClassSymbol;
       this.Privates.data = conObj.data;
    }
@@ -38,7 +37,6 @@ class DistanceSearch {
    swapComparator(comp) {
       return new DistanceSearch({
          data:       this.Privates.data,
-         perfect:    this.Privates.perfect,
          comparator: this.Privates.comparator
       });
    }
