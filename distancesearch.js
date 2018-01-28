@@ -1,98 +1,80 @@
-"use strict"
+import is from 'is';
 
-const DistanceComparator = require("./distancecomparator.js");
-const Privates = Symbol("Privates");
-const is = require("is");
-const ClassSymbol = Symbol("DistanceSearch");
+const CLASS_SYMBOL = Symbol('DistanceSearch Symbol');
 
-/********** API VERY LIKELY TO CHANGE IN FUTURE   *************/
-/********** WILL MOST LIKELY REMOVE COMPARATOR
-            FROM CONSTRUCTION AND MOVE IT TO FIND *************/
+export default class DistanceSearch {
+  constructor(conObj) {
+    this[CLASS_SYMBOL] = {
+      CLASS_SYMBOL,
+      data: conObj.data,
+    };
+  }
 
-class DistanceSearch {
-   constructor(conObj) {
-      this.Privates = {};
-      this.ClassSymbol = ClassSymbol;
-      this.Privates.data = conObj.data;
-   }
+  static get symbol() {
+    return CLASS_SYMBOL;
+  }
 
-   static get symbol() {
-      return ClassSymbol;
-   }
+  isClass(obj) {
+    if (!is.object(obj)) return false;
+    if (!obj[CLASS_SYMBOL]) return false;
+    return (this[CLASS_SYMBOL].CLASS_SYMBOL === obj[CLASS_SYMBOL].CLASS_SYMBOL);
+  }
 
-   static isClass(obj) {
-      if(!is.object(obj)) return false;
-      return (obj.ClassSymbol === ClassSymbol);
-   }
+  get symbol() {
+    return this[CLASS_SYMBOL].CLASS_SYMBOL;
+  }
 
-   isClass(obj) {
-      if(!is.object(obj)) return false;
-      return (obj.ClassSymbol === ClassSymbol);
-   }
+  set symbol(e) {
+    return this[CLASS_SYMBOL].CLASS_SYMBOL;
+  }
 
-   get symbol() {
-      return ClassSymbol;
-   }
+  find(qOpts, comp) {
+    return this.findN(qOpts, comp, 1)[0];
+  }
 
-   swapComparator(comp) {
-      return new DistanceSearch({
-         data:       this.Privates.data,
-         comparator: this.Privates.comparator
-      });
-   }
+  findN(qOpts, comp, n) {
+    const finalN = parseInt(n, 10);
 
-   find(qOpts, comp) {
-      return this.findN(qOpts, comp, 1)[0];
-   }
+    let extVal;
+    if (qOpts.minOrMax === 'max') {
+      extVal = Number.MIN_SAFE_INTEGER;
+    } else if (qOpts.minOrMax === 'min') {
+      extVal = Number.MAX_SAFE_INTEGER;
+    }
 
-   findN(qOpts, comp, n) {
-      n = parseInt(n);
+    const out = [];
+    let tmpComp;
+    const compType = (qOpts.minOrMax === 'max') ? (() => tmpComp >= extVal)
+      : (() => tmpComp <= extVal);
 
-      let extVal;
-      if(qOpts.minOrMax === "max") {
-         extVal = Number.MIN_SAFE_INTEGER;
-      } if(qOpts.minOrMax === "min") {
-         extVal = Number.MAX_SAFE_INTEGER;
-      }
-      let out = [];
-      let tmpComp;
-      let compType = (qOpts.minOrMax === "max") ? (() => tmpComp >= extVal)
-                                            : (() => tmpComp <= extVal);
 
-      /******** CAN CLEAN THIS UP USING A PRIORITY QUEUE
-      ///
-      //////
-      //////////
-      */
+    /* CAN CLEAN THIS UP USING A PRIORITY QUEUE */
 
-      // For Every row of data
-      for(const obj of this.Privates.data) {
-         // For every search column
-         for(const sq of qOpts.search) {
-            tmpComp = comp.comp(obj[sq], qOpts.minOrMax);
-            // computing mins or maxs based on qOpts.minOrMax and comp set above
-            if(compType()) {
-               extVal = tmpComp;
-               let tmpObj = {};
-               for(const pullProp of qOpts.ret) {
-                  if(qOpts.ret.length === 1 && pullProp === "*") {
-                     for(const tmpProp of Reflect.ownKeys(obj)) {
-                        tmpObj[tmpProp] = obj[tmpProp];
-                     }
-                  } else {
-                     tmpObj[pullProp] = obj[pullProp];
-                  }
-               }
-               out.unshift({pri: extVal, data: tmpObj});
-               if(out.length > n) {
-                  out.pop();
-               }
-               out
+    // For Every row of data
+    this[CLASS_SYMBOL].data.map((obj) => {
+      qOpts.search.map((sq) => {
+        tmpComp = comp.comp(obj[sq], qOpts.minOrMax);
+        // computing mins or maxs based on qOpts.minOrMax and comp set above
+        if (compType()) {
+          extVal = tmpComp;
+          const tmpObj = {};
+          qOpts.ret.map((pullProp) => {
+            if (qOpts.ret.length === 1 && pullProp === '*') {
+              /* eslint-disable no-return-assign */
+              Reflect.ownKeys(obj).map(tmpProp => tmpObj[tmpProp] = obj[tmpProp]);
+            } else {
+              tmpObj[pullProp] = obj[pullProp];
             }
-         }
-      }
-      return out;
-   }
+            return null;
+          });
+          out.unshift({ pri: extVal, data: tmpObj });
+          if (out.length > finalN) out.pop();
+        }
+        return null;
+      });
+      return null;
+    });
+    // For every search column
+    return out;
+  }
 }
-
-module.exports = DistanceSearch;

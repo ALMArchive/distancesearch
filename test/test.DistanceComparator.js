@@ -1,8 +1,6 @@
-"use strict"
-
-const DistanceComparator = require("../distancecomparator.js");
-const chai               = require("chai");
-const is                 = require("is");
+import DistanceComparator from "../distancecomparator";
+import chai from 'chai';
+import is from 'is';
 
 const RandExp = require('randexp');
 const PROP_NAME_REGEX  = /^[a-zA-Z][a-zA-Z0-9]{3,6}/;
@@ -47,10 +45,6 @@ describe("DistanceComparator", function() {
             let dc = new DistanceComparator(/s/);
             let dc2 = new DistanceComparator(/s/);
             chai.expect(dc.isClass(dc2)).to.be.true;
-      });
-      it("Should be able to us isClass on static Class", function() {
-            let dc = new DistanceComparator(/s/);
-            chai.expect(DistanceComparator.isClass(dc)).to.be.true;
       });
    });
    describe("comp", function() {

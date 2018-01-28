@@ -4,7 +4,7 @@
   "description": "A library to search through json objects using distance comparators like Dice Distance or the Levenshtein algorithm.",
   "main": "distancesearch.js",
   "scripts": {
-    "test": "mocha test --timeout 10000"
+    "test": "mocha test --compilers js:babel-register --require babel-polyfill"
   },
   "repository": {
     "type": "git",
@@ -30,10 +30,23 @@
   },
   "homepage": "https://github.com/ALMaclaine/distancesearch#readme",
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
     "celebs": "^0.1.0",
     "chai": "^4.1.2",
-    "mocha": "^4.0.1",
-    "randexp": "^0.4.6"
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.0",
+    "mocha": "^3.5.3",
+    "randexp": "^0.4.6",
+    "webpack": "^3.10.0"
   },
   "dependencies": {
     "humanparser": "^1.5.0",

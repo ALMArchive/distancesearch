@@ -1,13 +1,12 @@
 "use strict"
 
-const DistanceSearch     = require("../distancesearch.js");
-const DistanceComparator = require("../distancecomparator.js");
-const chai               = require("chai");
-const is                 = require("is");
-const celebData          = require("../node_modules/celebs/data/json/no-views/pantheon.json");
+import DistanceSearch from "../distancesearch";
+import DistanceComparator from "../distancecomparator";
+import chai from "chai";
+import is from "is";
+import celebData from "../node_modules/celebs/data/json/no-views/pantheon.json";
 
 const passIns = ["",1,()=>{},[],{},null,undefined,Symbol("")];
-
 
 describe("DistanceSearch", function() {
    describe("Construction", function() {
@@ -16,18 +15,6 @@ describe("DistanceSearch", function() {
             let dc = new DistanceComparator("Word");
             let ds = new DistanceSearch({data:[{}],comparator:dc});
             chai.expect(ds.constructor.name === "DistanceSearch").to.be.true;
-         });
-      });
-   });
-   describe("swapComparator", function() {
-      describe("Output Validation", function() {
-         it("Should return DistanceSearch on correct inputs", function() {
-            passIns.map((e) =>
-               chai.expect((() => {
-                  let dc = new DistanceComparator("Word");
-                  let ds = new DistanceSearch({data:[{}],comparator:dc});
-                  return DistanceSearch.isClass(ds.swapComparator(dc));
-               })()).to.be.true);
          });
       });
    });
