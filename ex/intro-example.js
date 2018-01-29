@@ -1,6 +1,6 @@
 "use strict";
 
-const Celebs = require("../celebs.js");
+import Celebs from "../node_modules/celebs/";
 
 let celeb = new Celebs("views","all");
 

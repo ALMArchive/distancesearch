@@ -1,13 +1,15 @@
-"use strict";
+import fs from 'fs';
+import path from 'path';
 
-const fs       = require("fs");
-const path     = require("path");
-const basename = path.basename(module.filename);
+// console.log(import.meta);
+const basename = path.basename(import.meta.url);
+const dirname = path.dirname(import.meta.url).split(path.sep).pop();
+const alls = [];
 
-fs.readdirSync(__dirname)
-  .filter(function(file) {
+fs.readdirSync(dirname)
+  .filter(function (file) {
     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
   })
-  .forEach(function(file) {
-    require(`./${file}`);
+  .forEach(function (file) {
+    import(`./${file}`);
   });

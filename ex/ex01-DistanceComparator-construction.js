@@ -1,6 +1,6 @@
 "use strict";
 
-const DistanceComparator = require("../distancecomparator.js");
+import DistanceComparator from "../distancecomparator.js";
 
 // First parameter must be views or no-views
 // views are access data for how many times the artists were searche for

@@ -1,6 +1,6 @@
 "use strict";
 
-const Celebs = require("../celebs.js");
+import Celebs from "../node_modules/celebs/";
 
 // Creating a new Celebs returns a promise wrapping the data set
 let celeb = new Celebs("views","all");
