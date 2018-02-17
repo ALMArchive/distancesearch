@@ -4,10 +4,11 @@ import path from "path";
 export default {
   entry: {
     "distancesearch": "./distancesearch.js",
-    "distancesearch.min": "./distancesearch.js"
   },
   target: 'node',
   output: {
+    library: "distancesearch",
+    libraryTarget: "umd",
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js"
   },

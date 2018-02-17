@@ -2,11 +2,16 @@
   "name": "distancesearch",
   "version": "0.0.3",
   "description": "A library to search through json objects using distance comparators like Dice Distance or the Levenshtein algorithm.",
-  "main": "distancesearch.js",
+  "main": "dist/distancesearch.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "mocha test --compilers js:babel-register --require babel-polyfill",
+    "test": "mocha -r @std/esm test",
     "ex": "node -r @std/esm ex/intro-example",
-    "exAll": "node -r @std/esm ex/runAll"
+    "exAll": "node -r @std/esm ex/runAll",
+    "build": "webpack",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -32,13 +37,13 @@
   },
   "homepage": "https://github.com/ALMaclaine/distancesearch#readme",
   "devDependencies": {
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.40",
+    "@babel/polyfill": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.0.0-beta.40",
+    "@babel/register": "^7.0.0-beta.40",
     "@std/esm": "^0.20.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-register": "^6.26.0",
+    "babel-loader": "^8.0.0-beta.0",
     "celebs": "^0.1.0",
     "chai": "^4.1.2",
     "eslint": "^4.16.0",
