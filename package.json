@@ -1,6 +1,6 @@
 {
   "name": "distancesearch",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A library to search through json objects using distance comparators like Dice Distance or the Levenshtein algorithm.",
   "main": "dist/distancesearch.js",
   "files": [
