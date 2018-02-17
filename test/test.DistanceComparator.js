@@ -1,8 +1,8 @@
 import DistanceComparator from "../distancecomparator";
 import chai from 'chai';
 import is from 'is';
+import RandExp from 'randexp';
 
-const RandExp = require('randexp');
 const PROP_NAME_REGEX  = /^[a-zA-Z][a-zA-Z0-9]{3,6}/;
 const propGen   = new RandExp(PROP_NAME_REGEX); // .gen()
 
