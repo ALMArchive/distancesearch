@@ -1,6 +1,6 @@
 {
   "name": "distancesearch",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A library to search through json objects using distance comparators like Dice Distance or the Levenshtein algorithm.",
   "main": "dist/distancesearch.js",
   "files": [
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ALMaclaine/distancesearch.git"
+    "url": "git+https://github.com/ALMArchive/distancesearch.git"
   },
   "keywords": [
     "Distance",
@@ -33,9 +33,9 @@
   "author": "Alessandro Maclaine",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ALMaclaine/distancesearch/issues"
+    "url": "https://github.com/ALMArchive/distancesearch/issues"
   },
-  "homepage": "https://github.com/ALMaclaine/distancesearch#readme",
+  "homepage": "https://github.com/ALMArchive/distancesearch#readme",
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.40",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.40",
